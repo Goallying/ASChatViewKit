@@ -7,8 +7,9 @@
 //
 
 #import "AppDelegate.h"
+#import <JMessage/JMessage.h>
 
-@interface AppDelegate ()
+@interface AppDelegate ()<JMessageDelegate>
 
 @end
 
@@ -17,9 +18,30 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    //    监听事件通知。
+    [JMessage addDelegate:self withConversation:nil];
+    [JMessage setupJMessage:launchOptions
+                     appKey:@"03cbe0624ce789790736acdf"
+                    channel:@""
+           apsForProduction:NO
+                   category:nil
+             messageRoaming:NO];
+    [self loginUser:@"13063481502" Password:@"123456"];
     return YES;
 }
-
+- (void)loginUser:(NSString *)username Password:(NSString *)password {
+    [JMSGUser registerWithUsername:username password:password completionHandler:^(id resultObject, NSError *error) {
+        [JMSGUser loginWithUsername:username password:password completionHandler:^(id resultObject, NSError *error) {
+            if (error) {
+                NSLog(@"登录失败");
+            }
+        }];
+    }];
+}
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    [JMessage registerDeviceToken:deviceToken];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

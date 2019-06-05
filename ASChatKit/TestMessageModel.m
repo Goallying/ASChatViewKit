@@ -71,6 +71,44 @@
     }
     return  self ;
 }
+
+- (instancetype)initWithJMSGMessage:(JMSGMessage *)message {
+    if (self = [super init]) {
+        _isOutGoing = NO ;
+        NSString * root =  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        switch (message.contentType) {
+            case kJMSGContentTypeText:
+            {
+                _msgType = ASMessageTypeText ;
+            }
+                break;
+            case kJMSGContentTypeImage:
+            {
+                _msgType = ASMessageTypeImage ;
+                _mediaPath = [root stringByAppendingFormat:@"/jImage%@" ,message.serverMessageId];
+            }
+                break ;
+            case kJMSGContentTypeVoice:
+            {
+                _msgType = ASMessageTypeVoice ;
+                _mediaPath = [root stringByAppendingFormat:@"/jVoice%@" ,message.serverMessageId];
+            }
+                break ;
+            case kJMSGContentTypeVideo:
+            {
+                _msgType = ASMessageTypeVideo ;
+                _mediaPath = [root stringByAppendingFormat:@"/jVideo%@" ,message.serverMessageId];
+            }
+                break ;
+            default:
+                _msgType = ASMessageTypeNone ;
+                break;
+        }
+    }
+    return self ;
+}
+
+
 - (CGFloat)msgDuration {
     return _duration ;
 }

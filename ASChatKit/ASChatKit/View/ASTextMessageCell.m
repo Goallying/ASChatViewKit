@@ -45,7 +45,7 @@
 - (UILabel *)contentlb {
     if (!_contentlb) {
         _contentlb = [[UILabel alloc]init];
-        _contentlb.font = [UIFont systemFontOfSize:16];
+        _contentlb.font = [UIFont systemFontOfSize:15];
         _contentlb.numberOfLines = 0 ;
     }
     return _contentlb ;

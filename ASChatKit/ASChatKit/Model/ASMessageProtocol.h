@@ -13,7 +13,8 @@ typedef NS_ENUM(NSInteger ,ASMessageType) {
     ASMessageTypeText ,
     ASMessageTypeImage ,
     ASMessageTypeVoice ,
-    ASMessageTypeVideo
+    ASMessageTypeVideo ,
+    ASMessageTypeNone
 };
 @protocol ASMessageProtocol <NSObject>
 

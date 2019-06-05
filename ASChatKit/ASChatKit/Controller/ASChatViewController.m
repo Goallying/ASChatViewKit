@@ -7,12 +7,10 @@
 //
 
 #import "ASChatViewController.h"
+#import <AVFoundation/AVFoundation.h>
 #import "UIView+ASAddition.h"
 #import "ASChatMessageController.h"
 #import "ASChatBoxController.h"
-
-//Test
-#import "TestMessageModel.h"
 
 @interface ASChatViewController ()
 <ASChatMessageControllerDelegate,
@@ -43,8 +41,9 @@ UIImagePickerControllerDelegate>
     
     [self.view addSubview:self.chatBoxVC.view];
     [self addChildViewController:self.chatBoxVC];
-    
-    //
+}
+- (void)appendMessage:(id<ASMessageProtocol>)message{
+    [self.messageVC appendMessage:message];
 }
 #pragma mark --
 #pragma mark -- ASChatBoxDelegate --
@@ -65,12 +64,14 @@ UIImagePickerControllerDelegate>
     }
 }
 - (void)chatBox:(ASChatBoxController *)chatBox sendText:(NSString *)text {
-    TestMessageModel * message = [[TestMessageModel alloc]initWithText:text];
-    [self.messageVC appendMessage:message];
+    if ([self.delegate respondsToSelector:@selector(willSendText:)]) {
+        [self.delegate willSendText:text];
+    }
 }
 - (void)chatBox:(ASChatBoxController *)chatBox didFinishRecordVoice:(NSString *)filePath duration:(CGFloat)duration {
-    TestMessageModel * message = [[TestMessageModel alloc]initWithVoicePath:filePath duration:duration];
-    [self.messageVC appendMessage:message];
+    if ([self.delegate respondsToSelector:@selector(willSendVoice:duration:)]) {
+        [self.delegate willSendVoice:filePath duration:duration];
+    }
 }
 - (void)chatBox:(ASChatBoxController *)chatBox didChangeHeight:(CGFloat)height {
     self.messageVC.view.height = self.view.height - height - self.view.safeAreaInsets.bottom ;
@@ -95,14 +96,17 @@ UIImagePickerControllerDelegate>
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     if ([info[UIImagePickerControllerMediaType] isEqualToString:@"public.movie"]) {
         NSURL * videoURL = info[UIImagePickerControllerMediaURL];
-        TestMessageModel * message = [[TestMessageModel alloc]initWithVideoPath:videoURL.absoluteString];
-        [self.messageVC appendMessage:message];
         
+        AVURLAsset * videoAsset = [AVURLAsset URLAssetWithURL:videoURL options:nil];
+        float videoDurationSeconds = CMTimeGetSeconds(videoAsset.duration);
+        if ([self.delegate respondsToSelector:@selector(willSendVideo:duration:)]) {
+            [self.delegate willSendVideo:videoURL.absoluteString duration:videoDurationSeconds];
+        }
     }else if ([info[UIImagePickerControllerMediaType] isEqualToString:@"public.image"]){
-//        UIImage * image = info[UIImagePickerControllerOriginalImage];
         NSURL * imageURL = info[UIImagePickerControllerImageURL];
-        TestMessageModel * message = [[TestMessageModel alloc]initWithImagePath:imageURL.absoluteString];
-        [self.messageVC appendMessage:message];
+        if ([self.delegate respondsToSelector:@selector(willSendImage:)]) {
+            [self.delegate willSendImage:imageURL.absoluteString];
+        }
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
