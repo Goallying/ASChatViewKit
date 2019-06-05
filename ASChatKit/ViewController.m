@@ -59,6 +59,7 @@
     
     NSData *data = [NSData dataWithContentsOfFile: videoPath];
     JMSGVideoContent * content = [[JMSGVideoContent alloc]initWithVideoData:data thumbData:nil duration:@(duration)];
+    content.format = @"mov";
     JMSGMessage * jm =  [_conversation createMessageWithContent:content];
     [_conversation sendMessage:jm];
     //
@@ -78,6 +79,9 @@
 - (void)onReceiveMessage:(JMSGMessage *)message error:(NSError *)error {
     if (error) return ;
     
+    [TestMessageModel messageContentDownloadWithJMSGMessage:message completion:^(TestMessageModel *model) {
+        [self.chatVC appendMessage:model];
+    }];
     
 }
 

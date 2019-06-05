@@ -10,12 +10,7 @@
 #import "TestUser.h"
 
 @interface TestMessageModel()
-@property (nonatomic ,copy) NSString * txt ;
-@property (nonatomic ,assign) BOOL isOutGoing ;
-@property (nonatomic ,assign) ASMessageType msgType ;
-@property (nonatomic ,copy) NSString * mediaPath ;
-@property (nonatomic ,assign) CGSize contentSize ;
-@property (nonatomic ,assign) CGFloat duration ;
+
 @end
 
 @implementation TestMessageModel
@@ -47,11 +42,12 @@
     }
     return self ;
 }
-- (instancetype)initWithVideoPath:(NSString *)videoPath {
+- (instancetype)initWithVideoPath:(NSString *)videoPath duration:(CGFloat)duration{
     if (self = [super init]) {
         _isOutGoing = YES ;
         _msgType = ASMessageTypeVideo ;
         _mediaPath = videoPath ;
+        _duration = duration ;
         
         _contentSize = CGSizeMake(160, 190);
     }
@@ -72,7 +68,96 @@
     return  self ;
 }
 
-- (instancetype)initWithJMSGMessage:(JMSGMessage *)message {
++ (void)messageContentDownloadWithJMSGMessage:(JMSGMessage *)message completion:(void (^)(TestMessageModel *))completion {
+    
+    NSString * root =  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    TestMessageModel * model = [[TestMessageModel alloc]init];
+    model.isOutGoing = NO ;
+
+    switch (message.contentType) {
+        case kJMSGContentTypeText:
+        {
+            model.msgType = ASMessageTypeText ;
+            
+            JMSGTextContent * content = (JMSGTextContent *)message.content ;
+            model.txt =  content.text ;
+            model.contentSize = [model.txt boundingRectWithSize:CGSizeMake(200, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size ;
+            if (completion) {
+                completion(model);
+            }
+        }
+            break;
+        case kJMSGContentTypeImage:
+        {
+            model.msgType = ASMessageTypeImage ;
+            
+            NSString * mediaPath = [root stringByAppendingFormat:@"/jImage%@" ,message.serverMessageId];
+            JMSGImageContent * content = (JMSGImageContent *)message.content ;
+            [content largeImageDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
+                if (!error) {
+                    UIImage * img = [UIImage imageWithData:data];
+                    if (img.size.width > 160) {
+                        model.contentSize = CGSizeMake(160, img.size.height * 160.f / img.size.width) ;
+                    }else{
+                        model.contentSize = img.size ;
+                    }
+                    if ([data writeToFile:mediaPath atomically:YES]){
+                        model.mediaPath = mediaPath ;
+                    }
+                    if (completion) {
+                        completion(model);
+                    }
+                }
+            }];
+        }
+            break ;
+        case kJMSGContentTypeVoice:
+        {
+            model.msgType = ASMessageTypeVoice ;
+            NSString * mediaPath = [root stringByAppendingFormat:@"/jVoice%@" ,message.serverMessageId];
+            JMSGVoiceContent * content = (JMSGVoiceContent *)message.content ;
+            [content voiceData:^(NSData *data, NSString *objectId, NSError *error) {
+                if (!error) {
+                    UIImage * img = [UIImage imageNamed:@"ChatRoom_Bubble_Voice_Sender"];
+                    model.contentSize = CGSizeMake(img.size.width + 44 + [content.duration floatValue] * 2, img.size.height);
+                    if ([data writeToFile:mediaPath atomically:YES]){
+                        model.mediaPath = mediaPath ;
+                    }
+                    if (completion) {
+                        completion(model);
+                    }
+                }
+            }];
+        }
+            break ;
+        case kJMSGContentTypeVideo:
+        {
+            model.msgType = ASMessageTypeVideo ;
+            NSString * mediaPath = [root stringByAppendingFormat:@"/jVideo%@" ,message.serverMessageId];
+            JMSGVideoContent * content = (JMSGVideoContent *)message.content ;
+            [content videoDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
+                if (!error) {
+                    model.contentSize = CGSizeMake(160, 190);
+                    if ([data writeToFile:mediaPath atomically:YES]){
+                        model.mediaPath = mediaPath ;
+                    }
+                    if (completion) {
+                        completion(model);
+                    }
+                }
+            }];
+        }
+            break ;
+        default:
+            model.msgType = ASMessageTypeNone ;
+            model.contentSize = CGSizeZero ;
+            if (completion) {
+                completion(model);
+            }
+            break;
+    }
+}
+- (instancetype)initWithJMSGMessage:(JMSGMessage *)message  completion:(void (^)(void))completion{
     if (self = [super init]) {
         _isOutGoing = NO ;
         NSString * root =  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
@@ -80,24 +165,32 @@
             case kJMSGContentTypeText:
             {
                 _msgType = ASMessageTypeText ;
+                
+                JMSGTextContent * content = (JMSGTextContent *)message.content ;
+                _txt =  content.text ;
             }
                 break;
             case kJMSGContentTypeImage:
             {
                 _msgType = ASMessageTypeImage ;
+                
                 _mediaPath = [root stringByAppendingFormat:@"/jImage%@" ,message.serverMessageId];
+                JMSGImageContent * content = (JMSGImageContent *)message.content ;
+                [content largeImageDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
+                    
+                }];
             }
                 break ;
             case kJMSGContentTypeVoice:
             {
                 _msgType = ASMessageTypeVoice ;
-                _mediaPath = [root stringByAppendingFormat:@"/jVoice%@" ,message.serverMessageId];
+//                _mediaPath = [root stringByAppendingFormat:@"/jVoice%@" ,message.serverMessageId];
             }
                 break ;
             case kJMSGContentTypeVideo:
             {
                 _msgType = ASMessageTypeVideo ;
-                _mediaPath = [root stringByAppendingFormat:@"/jVideo%@" ,message.serverMessageId];
+//                _mediaPath = [root stringByAppendingFormat:@"/jVideo%@" ,message.serverMessageId];
             }
                 break ;
             default:
@@ -107,7 +200,6 @@
     }
     return self ;
 }
-
 
 - (CGFloat)msgDuration {
     return _duration ;
