@@ -14,6 +14,6 @@
 - (instancetype)initWithText:(NSString *)txt  ;
 - (instancetype)initWithImagePath:(NSString *)imgPath ;
 - (instancetype)initWithVideoPath:(NSString *)videoPath ;
-
+- (instancetype)initWithVoicePath:(NSString *)voicePath duration:(CGFloat)duration;
 @end
 

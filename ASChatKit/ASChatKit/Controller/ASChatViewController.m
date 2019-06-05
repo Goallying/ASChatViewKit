@@ -68,6 +68,10 @@ UIImagePickerControllerDelegate>
     TestMessageModel * message = [[TestMessageModel alloc]initWithText:text];
     [self.messageVC appendMessage:message];
 }
+- (void)chatBox:(ASChatBoxController *)chatBox didFinishRecordVoice:(NSString *)filePath duration:(CGFloat)duration {
+    TestMessageModel * message = [[TestMessageModel alloc]initWithVoicePath:filePath duration:duration];
+    [self.messageVC appendMessage:message];
+}
 - (void)chatBox:(ASChatBoxController *)chatBox didChangeHeight:(CGFloat)height {
     self.messageVC.view.height = self.view.height - height - self.view.safeAreaInsets.bottom ;
     self.chatBoxVC.view.top = self.messageVC.view.height ;

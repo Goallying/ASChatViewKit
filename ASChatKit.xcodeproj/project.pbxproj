@@ -28,6 +28,7 @@
 		5C801D3722A7519B0058BC5C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5C801D3622A7519B0058BC5C /* README.md */; };
 		5C801D3C22A751A70058BC5C /* TestMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801D3822A751A70058BC5C /* TestMessageModel.m */; };
 		5C801D3D22A751A70058BC5C /* TestUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801D3922A751A70058BC5C /* TestUser.m */; };
+		5C801D4022A759780058BC5C /* ASVoiceMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801D3F22A759780058BC5C /* ASVoiceMessageCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,8 @@
 		5C801D3922A751A70058BC5C /* TestUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUser.m; sourceTree = "<group>"; };
 		5C801D3A22A751A70058BC5C /* TestUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestUser.h; sourceTree = "<group>"; };
 		5C801D3B22A751A70058BC5C /* TestMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestMessageModel.h; sourceTree = "<group>"; };
+		5C801D3E22A759780058BC5C /* ASVoiceMessageCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASVoiceMessageCell.h; sourceTree = "<group>"; };
+		5C801D3F22A759780058BC5C /* ASVoiceMessageCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASVoiceMessageCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,8 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				5C801D0D22A751930058BC5C /* asemoji.plist */,
-				5C801D0E22A751930058BC5C /* ASMessageProtocol.h */,
-				5C801D0F22A751930058BC5C /* ASUserProtocol.h */,
 				5C801D1022A751930058BC5C /* Category */,
 				5C801D1322A751930058BC5C /* Controller */,
 				5C801D1A22A751930058BC5C /* Model */,
@@ -161,6 +162,8 @@
 		5C801D1A22A751930058BC5C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5C801D0E22A751930058BC5C /* ASMessageProtocol.h */,
+				5C801D0F22A751930058BC5C /* ASUserProtocol.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,20 +171,22 @@
 		5C801D1B22A751930058BC5C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5C801D1C22A751930058BC5C /* ASBaseContentCell.h */,
-				5C801D1D22A751930058BC5C /* ASBaseContentCell.m */,
 				5C801D1E22A751930058BC5C /* ASChatToolBar.h */,
 				5C801D1F22A751930058BC5C /* ASChatToolBar.m */,
 				5C801D2022A751930058BC5C /* ASEmojiView.h */,
 				5C801D2122A751930058BC5C /* ASEmojiView.m */,
-				5C801D2222A751930058BC5C /* ASImageMessageCell.h */,
-				5C801D2322A751930058BC5C /* ASImageMessageCell.m */,
 				5C801D2422A751930058BC5C /* ASMoreView.h */,
 				5C801D2522A751930058BC5C /* ASMoreView.m */,
+				5C801D1C22A751930058BC5C /* ASBaseContentCell.h */,
+				5C801D1D22A751930058BC5C /* ASBaseContentCell.m */,
 				5C801D2622A751930058BC5C /* ASTextMessageCell.h */,
 				5C801D2722A751930058BC5C /* ASTextMessageCell.m */,
+				5C801D2222A751930058BC5C /* ASImageMessageCell.h */,
+				5C801D2322A751930058BC5C /* ASImageMessageCell.m */,
 				5C801D2822A751930058BC5C /* ASVideoMessageCell.h */,
 				5C801D2922A751930058BC5C /* ASVideoMessageCell.m */,
+				5C801D3E22A759780058BC5C /* ASVoiceMessageCell.h */,
+				5C801D3F22A759780058BC5C /* ASVoiceMessageCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				5C801D2E22A751930058BC5C /* ASChatViewController.m in Sources */,
 				5C801D3422A751930058BC5C /* ASTextMessageCell.m in Sources */,
 				5C801CFB22A750F60058BC5C /* ViewController.m in Sources */,
+				5C801D4022A759780058BC5C /* ASVoiceMessageCell.m in Sources */,
 				5C801D3D22A751A70058BC5C /* TestUser.m in Sources */,
 				5C801D2D22A751930058BC5C /* ASChatMessageController.m in Sources */,
 				5C801D3522A751930058BC5C /* ASVideoMessageCell.m in Sources */,

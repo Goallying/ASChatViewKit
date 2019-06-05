@@ -11,11 +11,15 @@
 #import "ASChatToolBar.h"
 #import "ASEmojiView.h"
 
-@interface ASChatBoxController ()<ASChatToolBarDelegate ,ASMoreViewDelegate , ASEmojiViewDelegate>
+@interface ASChatBoxController ()
+<ASChatToolBarDelegate ,
+ASMoreViewDelegate ,
+ASEmojiViewDelegate>
 @property (nonatomic ,strong) ASChatToolBar * toolBar ;
 @property (nonatomic ,strong) ASMoreView * moreView ;
 @property (nonatomic ,strong) ASEmojiView * emojiView ;
 @property (nonatomic ,assign) CGRect keyBoardRect ;
+@property (nonatomic ,assign) CGFloat duration ;
 @end
 
 @implementation ASChatBoxController
@@ -38,6 +42,17 @@
 }
 #pragma mark --
 #pragma mark -- ASChatToolBarDelegate --
+- (void)chatToolBarDidBeginRecordVoice:(ASChatToolBar *)toolBar {
+    
+}
+- (void)chatToolBarDidFinishRecordVoice:(ASChatToolBar *)toolBar filePath:(NSString *)filePath duration:(CGFloat)duration{
+    if ([self.delegate respondsToSelector:@selector(chatBox:didFinishRecordVoice:duration:)]) {
+        [self.delegate chatBox:self didFinishRecordVoice:filePath duration:duration];
+    }
+}
+- (void)chatToolBarDidCancelRecordVoice:(ASChatToolBar *)toolBar {
+    
+}
 - (void)chatToolBar:(ASChatToolBar *)toolBar sendText:(NSString *)text {
     if ([self.delegate respondsToSelector:@selector(chatBox:sendText:)]) {
         [self.delegate chatBox:self sendText:text];

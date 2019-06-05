@@ -15,6 +15,7 @@
 @property (nonatomic ,assign) ASMessageType msgType ;
 @property (nonatomic ,copy) NSString * mediaPath ;
 @property (nonatomic ,assign) CGSize contentSize ;
+@property (nonatomic ,assign) CGFloat duration ;
 @end
 
 @implementation TestMessageModel
@@ -55,6 +56,23 @@
         _contentSize = CGSizeMake(160, 190);
     }
     return self ;
+}
+- (instancetype)initWithVoicePath:(NSString *)voicePath duration:(CGFloat)duration {
+    if (self = [super init]) {
+        
+//        file:///private/var/mobile/Containers/Data/Application/88E3A128-2C16-4ED4-A9E6-C96FC0A6411F/tmp/58140876399__A37E4228-ED82-4290-8191-72BBF293BAA3.MOV
+        _isOutGoing = YES ;
+        _msgType = ASMessageTypeVoice ;
+        _mediaPath = voicePath ;
+        _duration = duration ;
+        
+        UIImage * img = [UIImage imageNamed:@"ChatRoom_Bubble_Voice_Sender"];
+        _contentSize = CGSizeMake(img.size.width + 44 + duration * 2, img.size.height);
+    }
+    return  self ;
+}
+- (CGFloat)msgDuration {
+    return _duration ;
 }
 - (NSString *)text {
     return _txt;

@@ -7,6 +7,7 @@
 //
 
 #import "ASChatToolBar.h"
+#import <AVFoundation/AVFoundation.h>
 #import "UIView+ASAddition.h"
 
 #define ASTextViewHeight 34
@@ -19,6 +20,9 @@
 @property (nonatomic ,strong) UIButton * voiceBtn ;
 @property (nonatomic ,strong) UIButton * talkButton ;
 @property (nonatomic ,assign) CGRect rct  ;
+
+@property (nonatomic ,strong) AVAudioRecorder * recorder ;
+@property (nonatomic ,copy) NSString * voiceFilePath ;
 @end
 
 @implementation ASChatToolBar
@@ -119,13 +123,33 @@
     }
 }
 - (void)recordStart:(UIButton *)btn {
-    NSLog(@"start");
+    if (_recorder) {
+        if ([_recorder isRecording]) {
+            [_recorder stop];
+        }
+        _recorder = nil ;
+    }
+    if (![self.recorder isRecording]) {
+        [self.recorder record];
+    }
+    
 }
 - (void)recordCancel:(UIButton *)btn {
-    NSLog(@"cancel");
+    [self.recorder stop];
+    //need to delete local file.
+    if ([self.delegate respondsToSelector:@selector(chatToolBarDidCancelRecordVoice:)]) {
+        [self.delegate chatToolBarDidCancelRecordVoice:self];
+    }
 }
 - (void)recordFinish:(UIButton *)btn {
-    NSLog(@"finish");
+    [self.recorder stop];
+    
+    NSURL * url = [NSURL URLWithString:[@"file://" stringByAppendingString:self.recorder.url.absoluteString]];
+    AVURLAsset * audioAsset = [AVURLAsset URLAssetWithURL:url options:nil];
+    float audioDurationSeconds = CMTimeGetSeconds(audioAsset.duration);
+    if ([self.delegate respondsToSelector:@selector(chatToolBarDidFinishRecordVoice:filePath: duration:)]  && audioDurationSeconds > 0) {
+        [self.delegate chatToolBarDidFinishRecordVoice:self filePath:self.recorder.url.absoluteString duration:audioDurationSeconds];
+    }
 }
 - (BOOL)resignFirstResponder {
     [self.textView resignFirstResponder];
@@ -172,7 +196,35 @@
     }
     return YES;
 }
+- (AVAudioRecorder *)recorder {
+    if (!_recorder) {
+        
+        NSTimeInterval interval = [[NSDate date] timeIntervalSince1970];
+        NSString * timeString = [NSString stringWithFormat:@"%.f", interval];
 
+        NSString * path =  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString * filePath = [path stringByAppendingFormat:@"/%@.caf",timeString];
+        
+        NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
+        //录音格式 无法使用
+        [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
+        //采样率
+        [recordSettings setValue :[NSNumber numberWithFloat:11025.0] forKey: AVSampleRateKey];//44100.0
+        //通道数
+        [recordSettings setValue :[NSNumber numberWithInt:2] forKey: AVNumberOfChannelsKey];
+        //线性采样位数
+        //[recordSettings setValue :[NSNumber numberWithInt:16] forKey: AVLinearPCMBitDepthKey];
+        //音频质量,采样质量
+        [recordSettings setValue:[NSNumber numberWithInt:AVAudioQualityMin] forKey:AVEncoderAudioQualityKey];
+        NSError * error = nil ;
+        _recorder = [[AVAudioRecorder alloc]initWithURL:[NSURL URLWithString:filePath] settings:recordSettings error:&error];
+        [_recorder prepareToRecord];
+        if (error) {
+            NSLog(@"AVAudioRecorder init error");
+        }
+    }
+    return _recorder ;
+}
 - (UIButton *)talkButton {
     if (!_talkButton) {
         _talkButton = [[UIButton alloc]initWithFrame:CGRectMake(self.voiceBtn.right + 5, self.centerY - ASTextViewHeight / 2, self.emojiBtn.left - 5 - self.voiceBtn.right - 5, ASTextViewHeight)];
@@ -207,6 +259,7 @@
     return theImage;
 
 }
+
 - (UIButton *)addBtn {
     if (!_addBtn) {
         UIImage * addImage = [UIImage imageNamed:@"ToolViewAdd"];
@@ -234,6 +287,7 @@
         _textView.delegate = self ;
         _textView.backgroundColor = [UIColor whiteColor];
         _textView.returnKeyType = UIReturnKeySend ;
+        _textView.font = [UIFont systemFontOfSize:14];
     }
     return _textView ;
 }

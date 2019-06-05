@@ -27,4 +27,5 @@ typedef NS_ENUM(NSInteger ,ASMessageType) {
 @property (nonatomic ,assign ,readonly) BOOL isOutGoing ;
 @property (nonatomic ,assign ,readonly) CGSize contentSize ;
 @property (nonatomic ,assign ,readonly) ASMessageType msgType ;
+@property (nonatomic ,assign ,readonly) CGFloat msgDuration ;
 @end

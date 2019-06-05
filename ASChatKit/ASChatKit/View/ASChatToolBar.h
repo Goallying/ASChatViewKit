@@ -40,6 +40,11 @@ typedef NS_ENUM(NSInteger, ASChatToolBarStatus) {
 - (void)chatToolBar:(ASChatToolBar *)toolBar fromStatus:(ASChatToolBarStatus)s toStatus:(ASChatToolBarStatus)t ;
 - (void)chatToolBar:(ASChatToolBar *)toolBar sendText:(NSString *)text ;
 
+//voiceRecord
+
+- (void)chatToolBarDidBeginRecordVoice:(ASChatToolBar *)toolBar ;
+- (void)chatToolBarDidCancelRecordVoice:(ASChatToolBar *)toolBar ;
+- (void)chatToolBarDidFinishRecordVoice:(ASChatToolBar *)toolBar filePath:(NSString *)filePath duration:(CGFloat)duration;
 @end
 
 @interface ASChatToolBar : UIView

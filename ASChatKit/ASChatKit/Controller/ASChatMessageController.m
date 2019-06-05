@@ -10,6 +10,7 @@
 #import "ASTextMessageCell.h"
 #import "ASImageMessageCell.h"
 #import "ASVideoMessageCell.h"
+#import "ASVoiceMessageCell.h"
 @interface ASChatMessageController ()
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic ,strong) NSMutableArray * dataSource  ;
@@ -32,6 +33,7 @@
     [self.tableView registerClass:[ASTextMessageCell class] forCellReuseIdentifier:@"Text"];
     [self.tableView registerClass:[ASImageMessageCell class] forCellReuseIdentifier:@"Image"];
     [self.tableView registerClass:[ASVideoMessageCell class] forCellReuseIdentifier:@"Video"];
+    [self.tableView registerClass:[ASVoiceMessageCell class] forCellReuseIdentifier:@"Voice"];
 }
 - (void)appendMessage:(id<ASMessageProtocol>)message {
     [self.dataSource addObject:message];
@@ -59,6 +61,10 @@
         return cell ;
     }else if (message.msgType == ASMessageTypeVideo){
         ASVideoMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Video" forIndexPath:indexPath];
+        cell.message = message;
+        return cell ;
+    }else if (message.msgType == ASMessageTypeVoice){
+        ASVoiceMessageCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Voice" forIndexPath:indexPath];
         cell.message = message;
         return cell ;
     }
