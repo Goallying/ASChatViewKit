@@ -50,6 +50,8 @@
 - (UIImageView *)contentImageView {
     if (!_contentImageView) {
         _contentImageView = [[UIImageView alloc]init];
+        _contentImageView.layer.cornerRadius = 4 ;
+        _contentImageView.layer.masksToBounds = YES ;
     }
     return _contentImageView ;
 }

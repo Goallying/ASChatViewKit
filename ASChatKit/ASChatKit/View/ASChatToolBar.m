@@ -10,7 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "UIView+ASAddition.h"
 
-#define ASTextViewHeight 34
+#define ASTextViewHeight 40
 #define ASMaxTextViewHeight 88
 
 @interface ASChatToolBar()<UITextViewDelegate>
@@ -60,7 +60,7 @@
         [self.textView setHidden:NO];
         [self.textView becomeFirstResponder];
     }else {
-        _barHeight = 49;
+        _barHeight = 54;
         self.height = _barHeight ;
         _status = ASChatToolBarStatusVoice ;
         [self.textView resignFirstResponder];
@@ -172,7 +172,7 @@
     CGFloat height = [textView sizeThatFits:CGSizeMake(self.textView.width, MAXFLOAT)].height;
     height = height > ASTextViewHeight ? height : ASTextViewHeight;
     height = height < ASMaxTextViewHeight ? height : textView.height;
-    _barHeight = height + 49 - ASTextViewHeight;
+    _barHeight = height + 54 - ASTextViewHeight;
     if (_barHeight != self.height) {
         [UIView animateWithDuration:0.05 animations:^{
             [self setHeight:self.barHeight];
@@ -233,13 +233,15 @@
         [_talkButton.layer setMasksToBounds:YES];
         [_talkButton setTitle:@"按住 说话" forState:UIControlStateNormal];
         [_talkButton setTitle:@"松开 结束" forState:UIControlStateHighlighted];
-        
+        [_talkButton setTitle:@"松开 结束" forState:UIControlStateSelected];
+
         [_talkButton setBackgroundImage:[self as_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
         [_talkButton setBackgroundImage:[self as_imageWithColor:[UIColor colorWithWhite:0.6 alpha:1]] forState:UIControlStateHighlighted];
         
         [_talkButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_talkButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
-        
+        [_talkButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
+
         [_talkButton.layer setCornerRadius:5];
         [_talkButton addTarget:self action:@selector(recordStart:) forControlEvents:UIControlEventTouchDown];
         [_talkButton addTarget:self action:@selector(recordCancel:) forControlEvents: UIControlEventTouchDragExit | UIControlEventTouchUpOutside];
@@ -282,7 +284,7 @@
 - (UITextView *)textView {
     if (!_textView) {
         _textView = [[UITextView alloc]initWithFrame:CGRectMake(self.voiceBtn.right + 5, self.centerY - ASTextViewHeight / 2, self.emojiBtn.left - 5 - self.voiceBtn.right - 5, ASTextViewHeight)];
-        [_textView.layer setCornerRadius:5];
+        [_textView.layer setCornerRadius:4];
         [_textView.layer setMasksToBounds:YES];
         _textView.delegate = self ;
         _textView.backgroundColor = [UIColor whiteColor];

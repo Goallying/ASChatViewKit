@@ -113,7 +113,7 @@ UIImagePickerControllerDelegate>
 - (ASChatBoxController *)chatBoxVC {
     if (!_chatBoxVC) {
         _chatBoxVC = [[ASChatBoxController alloc]init];
-        _chatBoxVC.view.frame = CGRectMake(0, self.view.height - 49 - self.view.safeAreaInsets.bottom, self.view.width, 49 + self.view.safeAreaInsets.bottom);
+        _chatBoxVC.view.frame = CGRectMake(0, self.view.height - 54 - self.view.safeAreaInsets.bottom, self.view.width, 54 + self.view.safeAreaInsets.bottom);
         _chatBoxVC.delegate = self ;
     }
     return _chatBoxVC ;
@@ -121,7 +121,7 @@ UIImagePickerControllerDelegate>
 - (ASChatMessageController *)messageVC {
     if (!_messageVC) {
         _messageVC = [[ASChatMessageController alloc]init];
-        _messageVC.view.frame = CGRectMake(0, 0,self.view.width, self.view.height - 49 - self.view.safeAreaInsets.bottom);
+        _messageVC.view.frame = CGRectMake(0, 0,self.view.width, self.view.height - 54 - self.view.safeAreaInsets.bottom);
         _messageVC.delegate = self ;
     }
     return _messageVC ;

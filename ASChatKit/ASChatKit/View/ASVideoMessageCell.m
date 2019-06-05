@@ -79,6 +79,8 @@
 - (UIImageView *)thumbImageView {
     if (!_thumbImageView) {
         _thumbImageView = [[UIImageView alloc]init];
+        _thumbImageView.layer.cornerRadius = 4 ;
+        _thumbImageView.layer.masksToBounds = YES ;
     }
     return _thumbImageView ;
 }

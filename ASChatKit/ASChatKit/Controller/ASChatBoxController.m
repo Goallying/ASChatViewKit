@@ -78,7 +78,7 @@ ASEmojiViewDelegate>
         if (s == ASChatToolBarStatusMore || s == ASChatToolBarStatusEmoji) {
             [UIView animateWithDuration:0.3 animations:^{
                 if ([self.delegate respondsToSelector:@selector(chatBox:didChangeHeight:)]) {
-                    [self.delegate chatBox:self didChangeHeight:49];
+                    [self.delegate chatBox:self didChangeHeight:54];
                 }
             } completion:^(BOOL finished) {
                 [self.emojiView removeFromSuperview];
@@ -87,7 +87,7 @@ ASEmojiViewDelegate>
         }else {
             [UIView animateWithDuration:0.3 animations:^{
                 if ([self.delegate respondsToSelector:@selector(chatBox:didChangeHeight:)]) {
-                    [self.delegate chatBox:self didChangeHeight:49];
+                    [self.delegate chatBox:self didChangeHeight:54];
                 }
             }];
         }
@@ -195,21 +195,21 @@ ASEmojiViewDelegate>
 }
 - (ASMoreView *)moreView {
     if (!_moreView) {
-        _moreView = [[ASMoreView alloc]initWithFrame:CGRectMake(0, 49, self.view.width, 215)];
+        _moreView = [[ASMoreView alloc]initWithFrame:CGRectMake(0, self.toolBar.bottom, self.view.width, 215)];
         _moreView.delegate = self ;
     }
     return _moreView ;
 }
 - (ASEmojiView *)emojiView {
     if (!_emojiView) {
-        _emojiView = [[ASEmojiView alloc]initWithFrame:CGRectMake(0, 49, self.view.width, 215)];
+        _emojiView = [[ASEmojiView alloc]initWithFrame:CGRectMake(0, self.toolBar.bottom, self.view.width, 215)];
         _emojiView.delegate = self ;
     }
     return _emojiView ;
 }
 - (ASChatToolBar *)toolBar {
     if (!_toolBar) {
-        _toolBar = [[ASChatToolBar alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 49)];
+        _toolBar = [[ASChatToolBar alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 54)];
         _toolBar.delegate = self ;
     }
     return _toolBar ;
