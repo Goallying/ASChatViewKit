@@ -81,17 +81,25 @@ UIImagePickerControllerDelegate>
 }
 
 - (void)openAlbum {
-    UIImagePickerController * picker = [[UIImagePickerController alloc]init];
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary ;
-    picker.delegate = self ;
-    [self presentViewController:picker animated:YES completion:nil];
+    if ([self.delegate respondsToSelector:@selector(willOpenAlbum)]) {
+        [self.delegate willOpenAlbum];
+    }else {
+        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary ;
+        picker.delegate = self ;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
 }
 - (void)openCamera {
-    UIImagePickerController * picker = [[UIImagePickerController alloc]init];
-    picker.sourceType = UIImagePickerControllerSourceTypeCamera ;
-    picker.delegate = self ;
-    picker.mediaTypes =  @[@"public.movie"] ;
-    [self presentViewController:picker animated:YES completion:nil];
+    if ([self.delegate respondsToSelector:@selector(willOpenCamera)]) {
+        [self.delegate willOpenCamera];
+    }else{
+        UIImagePickerController * picker = [[UIImagePickerController alloc]init];
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera ;
+        picker.delegate = self ;
+        picker.mediaTypes =  @[@"public.movie"] ;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
     if ([info[UIImagePickerControllerMediaType] isEqualToString:@"public.movie"]) {
