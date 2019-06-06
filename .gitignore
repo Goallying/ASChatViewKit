@@ -1,0 +1,51 @@
+
+Podfile.lock
+Pods/JCore/libjcore-ios-2.0.0.a
+Pods/JMessage/JMessage.framework/Headers/JMessage.h
+Pods/JMessage/JMessage.framework/Headers/JMessageDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGAbstractContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGChatRoom.h
+Pods/JMessage/JMessage.framework/Headers/JMSGConstants.h
+Pods/JMessage/JMessage.framework/Headers/JMSGConversation.h
+Pods/JMessage/JMessage.framework/Headers/JMSGConversationDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGCustomContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGDBMigrateDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGEventContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGEventDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGFileContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGFriendManager.h
+Pods/JMessage/JMessage.framework/Headers/JMSGFriendNotificationEvent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGGroup.h
+Pods/JMessage/JMessage.framework/Headers/JMSGGroupDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGImageContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGLocationContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGMediaAbstractContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGMessage.h
+Pods/JMessage/JMessage.framework/Headers/JMSGMessageDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGNotificationEvent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGOptionalContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGPromptContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGTextContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGUser.h
+Pods/JMessage/JMessage.framework/Headers/JMSGUserDelegate.h
+Pods/JMessage/JMessage.framework/Headers/JMSGVideoContent.h
+Pods/JMessage/JMessage.framework/Headers/JMSGVoiceContent.h
+Pods/JMessage/JMessage.framework/Info.plist
+Pods/JMessage/JMessage.framework/JMessage
+Pods/JMessage/JMessage.framework/Modules/module.modulemap
+Pods/Manifest.lock
+Pods/Pods.xcodeproj/project.pbxproj
+Pods/Pods.xcodeproj/xcuserdata/lifee.xcuserdatad/xcschemes/JCore.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/lifee.xcuserdatad/xcschemes/JMessage.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/lifee.xcuserdatad/xcschemes/Pods-ASChatKit.xcscheme
+Pods/Pods.xcodeproj/xcuserdata/lifee.xcuserdatad/xcschemes/xcschememanagement.plist
+Pods/Target Support Files/JCore/JCore.xcconfig
+Pods/Target Support Files/JMessage/JMessage.xcconfig
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit-acknowledgements.markdown
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit-acknowledgements.plist
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit-dummy.m
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit-Info.plist
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit-umbrella.h
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit.debug.xcconfig
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit.modulemap
+Pods/Target Support Files/Pods-ASChatKit/Pods-ASChatKit.release.xcconfig

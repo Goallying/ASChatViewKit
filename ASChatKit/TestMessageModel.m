@@ -91,7 +91,7 @@
         {
             model.msgType = ASMessageTypeImage ;
             
-            NSString * mediaPath = [root stringByAppendingFormat:@"/jImage%@" ,message.serverMessageId];
+            NSString * mediaPath = [NSString stringWithFormat:@"%@/jImage%@" ,root ,message.serverMessageId] ;
             JMSGImageContent * content = (JMSGImageContent *)message.content ;
             [content largeImageDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
                 if (!error) {
@@ -102,7 +102,7 @@
                         model.contentSize = img.size ;
                     }
                     if ([data writeToFile:mediaPath atomically:YES]){
-                        model.mediaPath = mediaPath ;
+                        model.mediaPath = [@"file://" stringByAppendingString:mediaPath] ;
                     }
                     if (completion) {
                         completion(model);
@@ -121,7 +121,7 @@
                     UIImage * img = [UIImage imageNamed:@"ChatRoom_Bubble_Voice_Sender"];
                     model.contentSize = CGSizeMake(img.size.width + 44 + [content.duration floatValue] * 2, img.size.height);
                     if ([data writeToFile:mediaPath atomically:YES]){
-                        model.mediaPath = mediaPath ;
+                        model.mediaPath = [@"file://" stringByAppendingString:mediaPath] ;
                     }
                     if (completion) {
                         completion(model);
@@ -133,7 +133,7 @@
         case kJMSGContentTypeVideo:
         {
             model.msgType = ASMessageTypeVideo ;
-            NSString * mediaPath = [root stringByAppendingFormat:@"/jVideo%@" ,message.serverMessageId];
+            NSString * mediaPath = [root stringByAppendingFormat:@"/jVideo%@.mov" ,message.serverMessageId];
             JMSGVideoContent * content = (JMSGVideoContent *)message.content ;
             [content videoDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
                 if (!error) {

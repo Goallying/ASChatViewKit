@@ -22,9 +22,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:246/255.0 green:246/255.0 blue:246/255.0 alpha:1];
     [self as_initView];
-    
-    NSString * path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES).lastObject;
-    NSLog(@"p  ==== %@" ,path);
 }
 - (void)as_initView {
     [self.view addGestureRecognizer:self.tapGesture];
@@ -37,9 +34,9 @@
 }
 - (void)appendMessage:(id<ASMessageProtocol>)message {
     [self.dataSource addObject:message];
-    [self.tableView beginUpdates];
+//    [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
+//    [self.tableView endUpdates];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -26,13 +26,18 @@
     [self.view addSubview:self.chatVC.view];
     
     //
-    _conversation = [JMSGConversation singleConversationWithUsername:@""];
+    NSString * uname = [JMSGUser myInfo].username;    
+    NSString * chatUname = [uname isEqualToString:@"ASJMSGUser1"]?@"ASJMSGUser2":@"ASJMSGUser1" ;
+    _conversation = [JMSGConversation singleConversationWithUsername:chatUname];
     if (!_conversation) {
-        [JMSGConversation createSingleConversationWithUsername:@"" completionHandler:^(id resultObject, NSError *error) {
+        [JMSGConversation createSingleConversationWithUsername:chatUname completionHandler:^(id resultObject, NSError *error) {
             if (!error) {
                 self.conversation = (JMSGConversation *)resultObject ;
+                [JMessage addDelegate:self withConversation:self.conversation];
             }
         }];
+    }else{
+        [JMessage addDelegate:self withConversation:self.conversation];
     }
 }
 - (void)willSendText:(NSString *)txt {
@@ -57,7 +62,7 @@
 }
 - (void)willSendVideo:(NSString *)videoPath duration:(CGFloat)duration{
     
-    NSData *data = [NSData dataWithContentsOfFile: videoPath];
+    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:videoPath]];
     JMSGVideoContent * content = [[JMSGVideoContent alloc]initWithVideoData:data thumbData:nil duration:@(duration)];
     content.format = @"mov";
     JMSGMessage * jm =  [_conversation createMessageWithContent:content];
@@ -76,6 +81,12 @@
     TestMessageModel * msg = [[TestMessageModel alloc]initWithVoicePath:voicePath duration:duration];
     [self.chatVC appendMessage:msg];
 }
+
+- (void)onSendMessageResponse:(JMSGMessage *)message error:(NSError *)error {
+    if (error) {
+        NSLog(@"%@" ,error);
+    }
+}
 - (void)onReceiveMessage:(JMSGMessage *)message error:(NSError *)error {
     if (error) return ;
     
@@ -84,6 +95,7 @@
     }];
     
 }
+
 
 
 

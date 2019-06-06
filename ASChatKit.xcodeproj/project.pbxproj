@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4797D69329BC6168FA8A813C /* Pods_ASChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCA3CB4D924E82CEA8CB574 /* Pods_ASChatKit.framework */; };
+		5C40B0C422A8A46F00A05B27 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C40B0C322A8A46F00A05B27 /* libsqlite3.tbd */; };
+		5C40B0C722A8A5B300A05B27 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40B0C622A8A5B300A05B27 /* LoginViewController.m */; };
 		5C801CF822A750F60058BC5C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801CF722A750F60058BC5C /* AppDelegate.m */; };
 		5C801CFB22A750F60058BC5C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801CFA22A750F60058BC5C /* ViewController.m */; };
 		5C801CFE22A750F60058BC5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C801CFC22A750F60058BC5C /* Main.storyboard */; };
@@ -34,6 +36,9 @@
 
 /* Begin PBXFileReference section */
 		170D7B22A5C86956AA4ED5FC /* Pods-ASChatKit.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ASChatKit.debug.xcconfig"; path = "Target Support Files/Pods-ASChatKit/Pods-ASChatKit.debug.xcconfig"; sourceTree = "<group>"; };
+		5C40B0C322A8A46F00A05B27 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		5C40B0C522A8A5B300A05B27 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		5C40B0C622A8A5B300A05B27 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		5C801CF322A750F60058BC5C /* ASChatKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASChatKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C801CF622A750F60058BC5C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5C801CF722A750F60058BC5C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -85,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C40B0C422A8A46F00A05B27 /* libsqlite3.tbd in Frameworks */,
 				4797D69329BC6168FA8A813C /* Pods_ASChatKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -95,6 +101,7 @@
 		2D224602D71067AEB16A0134 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5C40B0C322A8A46F00A05B27 /* libsqlite3.tbd */,
 				AFCA3CB4D924E82CEA8CB574 /* Pods_ASChatKit.framework */,
 			);
 			name = Frameworks;
@@ -129,6 +136,8 @@
 				5C801D3822A751A70058BC5C /* TestMessageModel.m */,
 				5C801D3A22A751A70058BC5C /* TestUser.h */,
 				5C801D3922A751A70058BC5C /* TestUser.m */,
+				5C40B0C522A8A5B300A05B27 /* LoginViewController.h */,
+				5C40B0C622A8A5B300A05B27 /* LoginViewController.m */,
 				5C801CF922A750F60058BC5C /* ViewController.h */,
 				5C801CFA22A750F60058BC5C /* ViewController.m */,
 				5C801CFC22A750F60058BC5C /* Main.storyboard */,
@@ -212,7 +221,6 @@
 				170D7B22A5C86956AA4ED5FC /* Pods-ASChatKit.debug.xcconfig */,
 				EFAC2F4FC3F9E623B0C5457D /* Pods-ASChatKit.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -328,6 +336,7 @@
 				5C801D3022A751930058BC5C /* ASChatToolBar.m in Sources */,
 				5C801D2B22A751930058BC5C /* UIView+ASAddition.m in Sources */,
 				5C801CF822A750F60058BC5C /* AppDelegate.m in Sources */,
+				5C40B0C722A8A5B300A05B27 /* LoginViewController.m in Sources */,
 				5C801D3C22A751A70058BC5C /* TestMessageModel.m in Sources */,
 				5C801D2C22A751930058BC5C /* ASChatBoxController.m in Sources */,
 				5C801D3222A751930058BC5C /* ASImageMessageCell.m in Sources */,

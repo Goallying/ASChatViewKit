@@ -27,18 +27,9 @@
            apsForProduction:NO
                    category:nil
              messageRoaming:NO];
-    [self loginUser:@"13063481502" Password:@"123456"];
     return YES;
 }
-- (void)loginUser:(NSString *)username Password:(NSString *)password {
-    [JMSGUser registerWithUsername:username password:password completionHandler:^(id resultObject, NSError *error) {
-        [JMSGUser loginWithUsername:username password:password completionHandler:^(id resultObject, NSError *error) {
-            if (error) {
-                NSLog(@"登录失败");
-            }
-        }];
-    }];
-}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [JMessage registerDeviceToken:deviceToken];
 }
