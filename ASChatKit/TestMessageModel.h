@@ -28,6 +28,5 @@
 //receive
 + (void)messageContentDownloadWithJMSGMessage:(JMSGMessage *)message
                                    completion:(void(^)(TestMessageModel * model))completion;
-//- (instancetype)initWithJMSGMessage:(JMSGMessage *)message  completion:(void(^)(void))completion;
 @end
 

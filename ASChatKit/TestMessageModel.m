@@ -159,50 +159,6 @@
             break;
     }
 }
-- (instancetype)initWithJMSGMessage:(JMSGMessage *)message  completion:(void (^)(void))completion{
-    if (self = [super init]) {
-        _isOutGoing = NO ;
-        NSString * root =  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        switch (message.contentType) {
-            case kJMSGContentTypeText:
-            {
-                _msgType = ASMessageTypeText ;
-                
-                JMSGTextContent * content = (JMSGTextContent *)message.content ;
-                _txt =  content.text ;
-            }
-                break;
-            case kJMSGContentTypeImage:
-            {
-                _msgType = ASMessageTypeImage ;
-                
-                _mediaPath = [root stringByAppendingFormat:@"/jImage%@" ,message.serverMessageId];
-                JMSGImageContent * content = (JMSGImageContent *)message.content ;
-                [content largeImageDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
-                    
-                }];
-            }
-                break ;
-            case kJMSGContentTypeVoice:
-            {
-                _msgType = ASMessageTypeVoice ;
-//                _mediaPath = [root stringByAppendingFormat:@"/jVoice%@" ,message.serverMessageId];
-            }
-                break ;
-            case kJMSGContentTypeVideo:
-            {
-                _msgType = ASMessageTypeVideo ;
-//                _mediaPath = [root stringByAppendingFormat:@"/jVideo%@" ,message.serverMessageId];
-            }
-                break ;
-            default:
-                _msgType = ASMessageTypeNone ;
-                break;
-        }
-    }
-    return self ;
-}
-
 - (CGFloat)msgDuration {
     return _duration ;
 }
