@@ -120,6 +120,7 @@
                 if (!error) {
                     UIImage * img = [UIImage imageNamed:@"ChatRoom_Bubble_Voice_Sender"];
                     model.contentSize = CGSizeMake(img.size.width + 44 + [content.duration floatValue] * 2, img.size.height);
+                    model.duration = [content.duration floatValue];
                     if ([data writeToFile:mediaPath atomically:YES]){
                         model.mediaPath = [@"file://" stringByAppendingString:mediaPath] ;
                     }
@@ -138,6 +139,7 @@
             [content videoDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
                 if (!error) {
                     model.contentSize = CGSizeMake(160, 190);
+                    model.duration = [content.duration floatValue];
                     if ([data writeToFile:mediaPath atomically:YES]){
                         model.mediaPath = mediaPath ;
                     }

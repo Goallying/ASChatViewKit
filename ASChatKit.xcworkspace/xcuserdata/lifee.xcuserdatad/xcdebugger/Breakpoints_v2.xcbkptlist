@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ASChatKit/TestMessageModel.m"
-            timestampString = "581481711.4857889"
+            timestampString = "581495581.103178"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ASChatKit/TestMessageModel.m"
-            timestampString = "581481711.485864"
+            timestampString = "581495581.103578"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "96"
@@ -58,12 +58,12 @@
                   moduleName = "ASChatKit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lifee/Desktop/ASChatKit/ASChatViewKit/ASChatKit/TestMessageModel.m"
-                  timestampString = "581481711.976709"
+                  timestampString = "581495581.1753761"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "96"
                   endingLineNumber = "96"
-                  offsetFromSymbolStart = "1016">
+                  offsetFromSymbolStart = "1218">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -73,12 +73,12 @@
                   moduleName = "ASChatKit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lifee/Desktop/ASChatKit/ASChatViewKit/ASChatKit/TestMessageModel.m"
-                  timestampString = "581481711.97821"
+                  timestampString = "581495581.177801"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "97"
                   endingLineNumber = "97"
-                  offsetFromSymbolStart = "112">
+                  offsetFromSymbolStart = "127">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -88,12 +88,12 @@
                   moduleName = "ASChatKit"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/lifee/Desktop/ASChatKit/ASChatViewKit/ASChatKit/TestMessageModel.m"
-                  timestampString = "581481711.979677"
+                  timestampString = "581495581.180033"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "96"
                   endingLineNumber = "96"
-                  offsetFromSymbolStart = "20">
+                  offsetFromSymbolStart = "16">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -105,7 +105,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ASChatKit/TestMessageModel.m"
-            timestampString = "581481711.485948"
+            timestampString = "581495581.1038229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -121,13 +121,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ASChatKit/ASChatKit/Controller/ASChatViewController.m"
-            timestampString = "581481711.4860719"
+            timestampString = "581495287.383505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "84"
             endingLineNumber = "84"
             landmarkName = "-openAlbum"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ASChatKit/TestMessageModel.m"
+            timestampString = "581495581.1040961"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "+messageContentDownloadWithJMSGMessage:completion:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "+[TestMessageModel messageContentDownloadWithJMSGMessage:completion:]"
+                  moduleName = "ASChatKit"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lifee/Desktop/ASChatKit/ASChatViewKit/ASChatKit/TestMessageModel.m"
+                  timestampString = "581495581.208274"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "1726">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__69+[TestMessageModel messageContentDownloadWithJMSGMessage:completion:]_block_invoke.92"
+                  moduleName = "ASChatKit"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lifee/Desktop/ASChatKit/ASChatViewKit/ASChatKit/TestMessageModel.m"
+                  timestampString = "581495581.210798"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "120"
+                  endingLineNumber = "120"
+                  offsetFromSymbolStart = "115">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__destroy_helper_block_.100"
+                  moduleName = "ASChatKit"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lifee/Desktop/ASChatKit/ASChatViewKit/ASChatKit/TestMessageModel.m"
+                  timestampString = "581495581.21297"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "119"
+                  endingLineNumber = "119"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
