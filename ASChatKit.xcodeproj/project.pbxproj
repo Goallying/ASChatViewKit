@@ -10,6 +10,7 @@
 		4797D69329BC6168FA8A813C /* Pods_ASChatKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCA3CB4D924E82CEA8CB574 /* Pods_ASChatKit.framework */; };
 		5C40B0C422A8A46F00A05B27 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C40B0C322A8A46F00A05B27 /* libsqlite3.tbd */; };
 		5C40B0C722A8A5B300A05B27 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C40B0C622A8A5B300A05B27 /* LoginViewController.m */; };
+		5C6C8B6E22ADF3A500CFD9BE /* ASImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C6C8B6D22ADF3A500CFD9BE /* ASImagePicker.m */; };
 		5C801CF822A750F60058BC5C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801CF722A750F60058BC5C /* AppDelegate.m */; };
 		5C801CFB22A750F60058BC5C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C801CFA22A750F60058BC5C /* ViewController.m */; };
 		5C801CFE22A750F60058BC5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C801CFC22A750F60058BC5C /* Main.storyboard */; };
@@ -39,6 +40,8 @@
 		5C40B0C322A8A46F00A05B27 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		5C40B0C522A8A5B300A05B27 /* LoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		5C40B0C622A8A5B300A05B27 /* LoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		5C6C8B6C22ADF3A500CFD9BE /* ASImagePicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ASImagePicker.h; sourceTree = "<group>"; };
+		5C6C8B6D22ADF3A500CFD9BE /* ASImagePicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ASImagePicker.m; sourceTree = "<group>"; };
 		5C801CF322A750F60058BC5C /* ASChatKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ASChatKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C801CF622A750F60058BC5C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5C801CF722A750F60058BC5C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -107,6 +110,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5C6C8B6B22ADF35900CFD9BE /* vendor */ = {
+			isa = PBXGroup;
+			children = (
+				5C6C8B6C22ADF3A500CFD9BE /* ASImagePicker.h */,
+				5C6C8B6D22ADF3A500CFD9BE /* ASImagePicker.m */,
+			);
+			path = vendor;
+			sourceTree = "<group>";
+		};
 		5C801CEA22A750F60058BC5C = {
 			isa = PBXGroup;
 			children = (
@@ -153,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				5C801D0D22A751930058BC5C /* asemoji.plist */,
+				5C6C8B6B22ADF35900CFD9BE /* vendor */,
 				5C801D1022A751930058BC5C /* Category */,
 				5C801D1322A751930058BC5C /* Controller */,
 				5C801D1A22A751930058BC5C /* Model */,
@@ -330,6 +343,7 @@
 				5C801D3D22A751A70058BC5C /* TestUser.m in Sources */,
 				5C801D2D22A751930058BC5C /* ASChatMessageController.m in Sources */,
 				5C801D3522A751930058BC5C /* ASVideoMessageCell.m in Sources */,
+				5C6C8B6E22ADF3A500CFD9BE /* ASImagePicker.m in Sources */,
 				5C801D0622A750F70058BC5C /* main.m in Sources */,
 				5C801D3322A751930058BC5C /* ASMoreView.m in Sources */,
 				5C801D3122A751930058BC5C /* ASEmojiView.m in Sources */,
