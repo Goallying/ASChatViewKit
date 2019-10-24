@@ -496,6 +496,7 @@
 			baseConfigurationReference = 170D7B22A5C86956AA4ED5FC /* Pods-ASChatKit.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 328GX9EB5V;
 				INFOPLIST_FILE = ASChatKit/Info.plist;
@@ -505,7 +506,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.asworld.com.ASChatKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -514,6 +516,7 @@
 			baseConfigurationReference = EFAC2F4FC3F9E623B0C5457D /* Pods-ASChatKit.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 328GX9EB5V;
 				INFOPLIST_FILE = ASChatKit/Info.plist;
@@ -523,7 +526,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.asworld.com.ASChatKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

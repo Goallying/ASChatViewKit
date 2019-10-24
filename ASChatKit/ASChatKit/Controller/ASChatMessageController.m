@@ -11,6 +11,8 @@
 #import "ASImageMessageCell.h"
 #import "ASVideoMessageCell.h"
 #import "ASVoiceMessageCell.h"
+
+#import <AudioToolbox/AudioToolbox.h>
 @interface ASChatMessageController ()
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic ,strong) NSMutableArray * dataSource  ;
@@ -66,6 +68,20 @@
         return cell ;
     }
     return nil;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([self.delegate respondsToSelector:@selector(didTapOnMessage:)]) {
+        id <ASMessageProtocol> message = self.dataSource [indexPath.row];
+        [self.delegate didTapOnMessage:message];
+        
+        if (message.msgType == ASMessageTypeVoice) {
+            SystemSoundID soundID;
+            NSString * path= message.media_file_path;
+            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundID);
+            //需要手动释放：
+            AudioServicesDisposeSystemSoundID(soundID);
+        }
+    }
 }
 - (void)didTapView:(UITapGestureRecognizer *)tap {
     if (tap.state == UIGestureRecognizerStateEnded) {

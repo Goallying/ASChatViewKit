@@ -14,6 +14,8 @@
 
 @optional
 - (void)didTapOnChatMessageController:(ASChatMessageController *)chatMessageController ;
+- (void)didTapOnMessage:(id<ASMessageProtocol>)message ;
+
 @end
 
 @interface ASChatMessageController : UITableViewController

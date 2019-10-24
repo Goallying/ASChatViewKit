@@ -122,6 +122,9 @@ UIImagePickerControllerDelegate>
     [self.chatBoxVC resignFirstResponder];
     
 }
+- (void)didTapOnMessage:(id<ASMessageProtocol>)message {
+    
+}
 - (ASChatBoxController *)chatBoxVC {
     if (!_chatBoxVC) {
         _chatBoxVC = [[ASChatBoxController alloc]init];
