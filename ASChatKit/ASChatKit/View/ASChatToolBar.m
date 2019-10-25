@@ -203,11 +203,11 @@
         NSString * timeString = [NSString stringWithFormat:@"%.f", interval];
 
         NSString * path =  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString * filePath = [path stringByAppendingFormat:@"/%@.caf",timeString];
+        NSString * filePath = [path stringByAppendingFormat:@"/%@_audioData.wav",timeString];
         
         NSMutableDictionary *recordSettings = [[NSMutableDictionary alloc] init];
         //录音格式 无法使用
-        [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatLinearPCM] forKey: AVFormatIDKey];
+//        [recordSettings setValue :[NSNumber numberWithInt:kAudioFormatMPEGLayer3] forKey: AVFormatIDKey];
         //采样率
         [recordSettings setValue :[NSNumber numberWithFloat:11025.0] forKey: AVSampleRateKey];//44100.0
         //通道数

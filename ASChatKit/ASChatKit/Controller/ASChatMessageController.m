@@ -12,10 +12,12 @@
 #import "ASVideoMessageCell.h"
 #import "ASVoiceMessageCell.h"
 
-#import <AudioToolbox/AudioToolbox.h>
-@interface ASChatMessageController ()
+#import <AVFoundation/AVFoundation.h>
+
+@interface ASChatMessageController ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UITapGestureRecognizer *tapGesture;
 @property (nonatomic ,strong) NSMutableArray * dataSource  ;
+@property (nonatomic ,strong) AVAudioPlayer *player ;
 @end
 
 @implementation ASChatMessageController
@@ -70,18 +72,37 @@
     return nil;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    id <ASMessageProtocol> message = self.dataSource [indexPath.row];
+
     if ([self.delegate respondsToSelector:@selector(didTapOnMessage:)]) {
-        id <ASMessageProtocol> message = self.dataSource [indexPath.row];
         [self.delegate didTapOnMessage:message];
-        
-        if (message.msgType == ASMessageTypeVoice) {
-            SystemSoundID soundID;
-            NSString * path= message.media_file_path;
-            AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path], &soundID);
-            //需要手动释放：
-            AudioServicesDisposeSystemSoundID(soundID);
-        }
     }
+    if (message.msgType == ASMessageTypeVoice) {
+        [self playVoice:message.media_file_path];
+    }
+}
+- (void)playVoice:(NSString *)p {
+    
+    NSURL *url = [NSURL URLWithString:p] ;
+    //    初始化播放器
+    NSError * error = nil ;
+    //一定要是全局变量
+    _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:&error];
+    if (error) {
+        NSLog(@"error----------%@",error.localizedDescription);
+    }
+    //    设置播放器声音
+        _player.volume = 1;
+    //    设置代理
+//        player.delegate = self;
+    //    设置播放速率
+        _player.rate = 1.0;
+    //    设置播放次数 负数代表无限循环
+//        player.numberOfLoops = -1;
+    //    准备播放
+    [_player prepareToPlay] ;
+    [_player play];
+    
 }
 - (void)didTapView:(UITapGestureRecognizer *)tap {
     if (tap.state == UIGestureRecognizerStateEnded) {
@@ -89,6 +110,12 @@
             [self.delegate didTapOnChatMessageController:self];
         }
     }
+}
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+           return NO;
+       }
+    return  YES;
 }
 - (void)scrollToBottom {
     if (self.dataSource.count < 1) return ;
@@ -103,6 +130,8 @@
 - (UITapGestureRecognizer *)tapGesture {
     if (!_tapGesture) {
         _tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapView:)];
+        _tapGesture.cancelsTouchesInView = NO ;
+        _tapGesture.delegate = self ;
     }
     return _tapGesture ;
 }
