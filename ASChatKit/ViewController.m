@@ -25,6 +25,8 @@
     [self addChildViewController:self.chatVC];
     [self.view addSubview:self.chatVC.view];
     
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:0 target:self action:@selector(popBack)];
     //
     NSString * uname = [JMSGUser myInfo].username;    
     NSString * chatUname = [uname isEqualToString:@"ASJMSGUser1"]?@"ASJMSGUser2":@"ASJMSGUser1" ;
@@ -39,6 +41,9 @@
     }else{
         [JMessage addDelegate:self withConversation:self.conversation];
     }
+}
+- (void)popBack{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 - (void)willSendText:(NSString *)txt {
     

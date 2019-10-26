@@ -235,8 +235,9 @@
         [_talkButton setTitle:@"松开 结束" forState:UIControlStateSelected];
 
         [_talkButton setBackgroundImage:[self as_imageWithColor:[UIColor whiteColor]] forState:UIControlStateNormal];
-        [_talkButton setBackgroundImage:[self as_imageWithColor:[UIColor colorWithWhite:0.6 alpha:1]] forState:UIControlStateHighlighted];
-        
+        [_talkButton setBackgroundImage:[self as_imageWithColor:[UIColor colorWithWhite:0.9 alpha:1]] forState:UIControlStateHighlighted];
+        [_talkButton setBackgroundImage:[self as_imageWithColor:[UIColor colorWithWhite:0.9 alpha:1]] forState:UIControlStateSelected];
+
         [_talkButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         [_talkButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
         [_talkButton setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
