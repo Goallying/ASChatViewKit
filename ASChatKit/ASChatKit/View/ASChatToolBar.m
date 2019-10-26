@@ -16,7 +16,6 @@
 @interface ASChatToolBar()<UITextViewDelegate>
 @property (nonatomic ,strong) UIButton * addBtn ;
 @property (nonatomic ,strong) UIButton * emojiBtn ;
-@property (nonatomic ,strong) UITextView * textView ;
 @property (nonatomic ,strong) UIButton * voiceBtn ;
 @property (nonatomic ,strong) UIButton * talkButton ;
 @property (nonatomic ,assign) CGRect rct  ;
@@ -296,7 +295,7 @@
 - (UIButton *)voiceBtn{
     if (!_voiceBtn) {
         UIImage * voiceImage = [UIImage imageNamed:@"ToolViewInputVoice"] ;
-        _voiceBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, self.centerY - voiceImage.size.height/2 , voiceImage.size.width, voiceImage.size.height)];
+        _voiceBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, (_barHeight - voiceImage.size.height )/ 2 , voiceImage.size.width, voiceImage.size.height)];
         [_voiceBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewInputVoice"] forState:UIControlStateNormal];
         [_voiceBtn setBackgroundImage:[UIImage imageNamed:@"ToolViewKeyboard"] forState:UIControlStateSelected];
         [_voiceBtn addTarget:self action:@selector(voiceClick:) forControlEvents:UIControlEventTouchUpInside];

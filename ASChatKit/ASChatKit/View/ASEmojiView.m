@@ -7,15 +7,17 @@
 //
 
 #import "ASEmojiView.h"
-#define as_col 8
+#import "UIView+ASAddition.h"
+#define as_col 7
 #define as_row 3
 
 #define ASDeleteEmojiButtonTag  888
 
-@interface ASEmojiView()
+@interface ASEmojiView()<UIScrollViewDelegate>
 
 @property (nonatomic ,strong) UIScrollView * scrollView ;
 @property (nonatomic ,assign) CGRect rct  ;
+@property (nonatomic ,strong) UIPageControl * pageControl ;
 @end
 
 @implementation ASEmojiView
@@ -47,10 +49,12 @@
         pages ++ ;
     }
     [self.scrollView setContentSize:CGSizeMake(self.rct.size.width * pages, self.rct.size.height)];
+    self.pageControl.numberOfPages = pages ;
     [self addSubview:self.scrollView];
+    [self addSubview:self.pageControl];
     //
     NSInteger imgIndex = 0 ;
-    UIEdgeInsets insets = UIEdgeInsetsMake(20, 20, 20, 20);
+    UIEdgeInsets insets = UIEdgeInsetsMake(10, 20, 0, 20);
     CGFloat spacing_x = 10 ;
     CGFloat spacing_y = 15 ;
     CGFloat emoji_w =(_rct.size.width - insets.left - insets.right - (as_col - 1) * spacing_x ) / as_col ;
@@ -64,6 +68,7 @@
                 break ;
             }
             UIButton * emojiBtn = [[UIButton alloc]initWithFrame:CGRectMake(insets.left + j % as_col * (emoji_w + spacing_x), insets.top + j / as_col * (emoji_w + spacing_y), emoji_w, emoji_w)];
+            [emojiBtn.titleLabel setFont:[UIFont fontWithName:@"AppleColorEmoji" size:28.0]];
             //处理最后一个表情
             if ((j + 1)% (as_row * as_col) == 0 || imgIndex >= emojis.count) {
                 [emojiBtn setBackgroundImage:[UIImage imageNamed:@"DeleteEmoticonBtn"] forState:UIControlStateNormal];
@@ -79,6 +84,7 @@
                 imgIndex ++ ;
             }
         }
+        
     }
     //
 }
@@ -94,6 +100,10 @@
         }
     }
 }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    NSInteger index = scrollView.contentOffset.x / scrollView.width ;
+    self.pageControl.currentPage = index ;
+}
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
         _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0.5, self.rct.size.width, self.rct.size.height)];
@@ -101,7 +111,18 @@
         _scrollView.showsHorizontalScrollIndicator = NO ;
         _scrollView.scrollEnabled = YES ;
         _scrollView.pagingEnabled = YES ;
+        _scrollView.delegate = self ;
     }
     return _scrollView ;
+}
+- (UIPageControl *)pageControl {
+    if (!_pageControl) {
+        _pageControl = [[UIPageControl alloc]init];
+        _pageControl.frame = CGRectMake(0, self.scrollView.bottom - 54 , self.scrollView.width, 40);
+        _pageControl.pageIndicatorTintColor = [UIColor grayColor];
+        _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
+        _pageControl.hidesForSinglePage = YES ;
+    }
+    return _pageControl ;
 }
 @end

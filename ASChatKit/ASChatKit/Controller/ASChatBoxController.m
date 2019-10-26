@@ -41,6 +41,11 @@ ASEmojiViewDelegate>
     }
 }
 #pragma mark --
+#pragma mark -- ASEmojiViewDelegate --
+- (void)asEmojiInput:(ASEmojiView *)emojiView emoji:(NSString *)emoji {
+    self.toolBar.textView.text = [self.toolBar.textView.text stringByAppendingString:emoji];
+}
+#pragma mark --
 #pragma mark -- ASChatToolBarDelegate --
 - (void)chatToolBarDidBeginRecordVoice:(ASChatToolBar *)toolBar {
     
@@ -54,6 +59,7 @@ ASEmojiViewDelegate>
     
 }
 - (void)chatToolBar:(ASChatToolBar *)toolBar sendText:(NSString *)text {
+    self.toolBar.textView.text = nil ;
     if ([self.delegate respondsToSelector:@selector(chatBox:sendText:)]) {
         [self.delegate chatBox:self sendText:text];
     }

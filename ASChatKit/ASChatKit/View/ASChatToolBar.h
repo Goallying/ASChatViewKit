@@ -51,5 +51,7 @@ typedef NS_ENUM(NSInteger, ASChatToolBarStatus) {
 @property (nonatomic ,weak) id <ASChatToolBarDelegate> delegate ;
 @property (nonatomic ,assign) ASChatToolBarStatus status ;
 @property (nonatomic ,assign) CGFloat barHeight ;
+@property (nonatomic ,strong) UITextView * textView ;
+
 @end
 
