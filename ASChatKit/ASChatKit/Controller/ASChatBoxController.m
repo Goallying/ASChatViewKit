@@ -45,6 +45,11 @@ ASEmojiViewDelegate>
 - (void)asEmojiInput:(ASEmojiView *)emojiView emoji:(NSString *)emoji {
     self.toolBar.textView.text = [self.toolBar.textView.text stringByAppendingString:emoji];
 }
+- (void)asEmojiDelete:(ASEmojiView *)emojiView {
+    if (self.toolBar.textView.text.length > 0) {
+        [self.toolBar.textView deleteBackward];
+    }
+}
 #pragma mark --
 #pragma mark -- ASChatToolBarDelegate --
 - (void)chatToolBarDidBeginRecordVoice:(ASChatToolBar *)toolBar {
