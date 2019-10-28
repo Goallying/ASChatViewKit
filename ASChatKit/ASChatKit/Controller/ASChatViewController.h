@@ -13,7 +13,7 @@
 
 @optional
 - (void)willSendText:(NSString *)txt ;
-- (void)willSendImage:(NSString *)imagePath ;
+- (void)willSendImage:(UIImage *)image;
 - (void)willSendVideo:(NSString *)videoPath duration:(CGFloat)duration ;
 - (void)willSendVoice:(NSString *)voicePath duration:(CGFloat)duration ;
 

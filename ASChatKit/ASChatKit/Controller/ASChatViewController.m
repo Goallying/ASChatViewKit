@@ -85,7 +85,7 @@ UIImagePickerControllerDelegate>
         [self.delegate willOpenAlbum];
     }else {
         UIImagePickerController * picker = [[UIImagePickerController alloc]init];
-        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary ;
+        picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum ;
         picker.delegate = self ;
         [self presentViewController:picker animated:YES completion:nil];
     }
@@ -94,11 +94,32 @@ UIImagePickerControllerDelegate>
     if ([self.delegate respondsToSelector:@selector(willOpenCamera)]) {
         [self.delegate willOpenCamera];
     }else{
+        
+        UIAlertController * sheet = [UIAlertController alertControllerWithTitle:@"来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
         UIImagePickerController * picker = [[UIImagePickerController alloc]init];
         picker.sourceType = UIImagePickerControllerSourceTypeCamera ;
         picker.delegate = self ;
-        picker.mediaTypes =  @[@"public.movie"] ;
-        [self presentViewController:picker animated:YES completion:nil];
+        picker.allowsEditing = NO;
+
+        UIAlertAction * album = [UIAlertAction actionWithTitle:@"拍摄照片" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModePhoto;
+            [self presentViewController:picker animated:YES completion:nil];
+        }];
+        UIAlertAction * camera = [UIAlertAction actionWithTitle:@"拍摄视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+
+            picker.cameraCaptureMode = UIImagePickerControllerCameraCaptureModeVideo;
+            [self presentViewController:picker animated:YES completion:nil];
+        }];
+        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [sheet addAction:album];
+        [sheet addAction:camera];
+        [sheet addAction:cancel];
+        [self presentViewController:sheet animated:YES completion:nil];
+
     }
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info{
@@ -111,12 +132,15 @@ UIImagePickerControllerDelegate>
             [self.delegate willSendVideo:videoURL.absoluteString duration:videoDurationSeconds];
         }
     }else if ([info[UIImagePickerControllerMediaType] isEqualToString:@"public.image"]){
-        NSURL * imageURL = info[UIImagePickerControllerImageURL];
         if ([self.delegate respondsToSelector:@selector(willSendImage:)]) {
-            [self.delegate willSendImage:imageURL.absoluteString];
+            UIImage * image = [info objectForKey:UIImagePickerControllerOriginalImage];
+            [self.delegate willSendImage:image];
         }
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    
 }
 - (void)didTapOnChatMessageController:(ASChatMessageController *)chatMessageController {
     [self.chatBoxVC resignFirstResponder];

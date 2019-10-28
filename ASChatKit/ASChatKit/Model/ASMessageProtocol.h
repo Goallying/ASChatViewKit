@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger ,ASMessageType) {
 - (NSString *)media_file_path ;
 - (NSString *)image_url ;
 - (NSString *)text ;
+- (UIImage *)image ;
 - (BOOL)isOutGoing ;
 - (CGSize)contentSize ;
 - (ASMessageType)msgType ;

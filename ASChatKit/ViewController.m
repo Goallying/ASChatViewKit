@@ -54,15 +54,15 @@
     TestMessageModel * msg = [[TestMessageModel alloc]initWithText:txt];
     [self.chatVC appendMessage:msg];
 }
-- (void)willSendImage:(NSString *)imagePath {
+- (void)willSendImage:(UIImage *)image {
     
-    NSURL * url = [NSURL URLWithString:imagePath];
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    JMSGImageContent * content = [[JMSGImageContent alloc]initWithImageData:data];
+//    NSURL * url = [NSURL URLWithString:imagePath];
+//    NSData * data = [NSData dataWithContentsOfURL:url];
+    JMSGImageContent * content = [[JMSGImageContent alloc]initWithImageData:UIImageJPEGRepresentation(image, 0.83)];
     JMSGMessage * jm =  [_conversation createMessageWithContent:content];
     [_conversation sendMessage:jm];
     //
-    TestMessageModel  * msg = [[TestMessageModel alloc]initWithImagePath:imagePath];
+    TestMessageModel  * msg = [[TestMessageModel alloc]initWithImage:image];
     [self.chatVC appendMessage:msg];
 }
 - (void)willSendVideo:(NSString *)videoPath duration:(CGFloat)duration{

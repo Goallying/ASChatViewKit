@@ -25,19 +25,19 @@
     }
     return self ;
 }
-- (instancetype)initWithImagePath:(NSString *)imgPath {
+- (instancetype)initWithImage:(UIImage *)image {
     if (self = [super init]) {
         _isOutGoing = YES ;
         _msgType = ASMessageTypeImage ;
-        _mediaPath = imgPath ;
-        
-        NSURL * url = [NSURL URLWithString:self.mediaPath];
-        NSData * data = [NSData dataWithContentsOfURL:url];
-        UIImage * img = [UIImage imageWithData:data];
-        if (img.size.width > 160) {
-            _contentSize = CGSizeMake(160, img.size.height * 160.f / img.size.width) ;
+        _mediaPath = nil ;
+        _image = image ;
+//        NSURL * url = [NSURL URLWithString:self.mediaPath];
+//        NSData * data = [NSData dataWithContentsOfURL:url];
+//        UIImage * img = [UIImage imageWithData:data];
+        if (image.size.width > 160) {
+            _contentSize = CGSizeMake(160, image.size.height * 160.f / image.size.width) ;
         }else{
-            _contentSize = img.size ;
+            _contentSize = image.size ;
         }
     }
     return self ;
@@ -91,7 +91,7 @@
         {
             model.msgType = ASMessageTypeImage ;
             
-            NSString * mediaPath = [NSString stringWithFormat:@"%@/jImage%@" ,root ,message.serverMessageId] ;
+//            NSString * mediaPath = [NSString stringWithFormat:@"%@/jImage%@" ,root ,message.serverMessageId] ;
             JMSGImageContent * content = (JMSGImageContent *)message.content ;
             [content largeImageDataWithProgress:nil completionHandler:^(NSData *data, NSString *objectId, NSError *error) {
                 if (!error) {
@@ -101,9 +101,10 @@
                     }else{
                         model.contentSize = img.size ;
                     }
-                    if ([data writeToFile:mediaPath atomically:YES]){
-                        model.mediaPath = [@"file://" stringByAppendingString:mediaPath] ;
-                    }
+                    model.image = img ;
+//                    if ([data writeToFile:mediaPath atomically:YES]){
+//                        model.mediaPath = [@"file://" stringByAppendingString:mediaPath] ;
+//                    }
                     if (completion) {
                         completion(model);
                     }
@@ -173,6 +174,9 @@
 }
 - (NSString *)media_file_path{
     return _mediaPath ;
+}
+- (UIImage *)image{
+    return _image ;
 }
 - (NSString *)time {
     return @"2019" ;

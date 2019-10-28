@@ -13,6 +13,7 @@
 @interface TestMessageModel : NSObject <ASMessageProtocol>
 
 @property (nonatomic ,copy) NSString * txt ;
+@property (nonatomic ,strong) UIImage * image ;
 @property (nonatomic ,assign) BOOL isOutGoing ;
 @property (nonatomic ,assign) ASMessageType msgType ;
 @property (nonatomic ,copy) NSString * mediaPath ;
@@ -21,7 +22,7 @@
 
 //send
 - (instancetype)initWithText:(NSString *)txt  ;
-- (instancetype)initWithImagePath:(NSString *)imgPath ;
+- (instancetype)initWithImage:(UIImage *)image ;
 - (instancetype)initWithVideoPath:(NSString *)videoPath duration:(CGFloat)duration;
 - (instancetype)initWithVoicePath:(NSString *)voicePath duration:(CGFloat)duration;
 

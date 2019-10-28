@@ -37,14 +37,14 @@
 - (void)setMessage:(id<ASMessageProtocol>)message {
     [super setMessage:message];
     
-    NSURL * url = [NSURL URLWithString:message.media_file_path];
-    NSData * data = [NSData dataWithContentsOfURL:url];
-    UIImage * contentImage = [UIImage imageWithData:data];
-    self.contentImageView.image = contentImage ;
-    if (contentImage.size.width > 160) {
-        self.contentImageView.size = CGSizeMake(160, contentImage.size.height * 160 / contentImage.size.width) ;
+//    NSURL * url = [NSURL URLWithString:message.media_file_path];
+//    NSData * data = [NSData dataWithContentsOfURL:url];
+//    UIImage * contentImage = [UIImage imageWithData:data];
+    self.contentImageView.image = message.image ;
+    if (message.image.size.width > 160) {
+        self.contentImageView.size = CGSizeMake(160, message.image.size.height * 160 / message.image.size.width) ;
     }else{
-        self.contentImageView.size = contentImage.size ;
+        self.contentImageView.size = message.image.size ;
     }
 }
 - (UIImageView *)contentImageView {
