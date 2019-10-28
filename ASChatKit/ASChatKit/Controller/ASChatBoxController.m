@@ -50,6 +50,12 @@ ASEmojiViewDelegate>
         [self.toolBar.textView deleteBackward];
     }
 }
+- (void)asEmojiSend:(ASEmojiView *)emojiView{
+    if ([self.delegate respondsToSelector:@selector(chatBox:sendText:)]) {
+        [self.delegate chatBox:self sendText:self.toolBar.textView.text];
+    }
+    self.toolBar.textView.text = nil ;
+}
 #pragma mark --
 #pragma mark -- ASChatToolBarDelegate --
 - (void)chatToolBarDidBeginRecordVoice:(ASChatToolBar *)toolBar {

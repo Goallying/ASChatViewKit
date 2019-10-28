@@ -13,6 +13,7 @@
 
 @optional
 - (void)asEmojiInput:(ASEmojiView *)emojiView emoji:(NSString *)emoji ;
+- (void)asEmojiSend:(ASEmojiView *)emojiView ;
 - (void)asEmojiDelete:(ASEmojiView *)emojiView ;
 
 @end

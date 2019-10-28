@@ -18,6 +18,7 @@
 @property (nonatomic ,strong) UIScrollView * scrollView ;
 @property (nonatomic ,assign) CGRect rct  ;
 @property (nonatomic ,strong) UIPageControl * pageControl ;
+@property (nonatomic ,strong) UIButton * sendButton ;
 @end
 
 @implementation ASEmojiView
@@ -48,16 +49,21 @@
     if (pages * as_row * as_col < emojis.count + pages) {
         pages ++ ;
     }
-    [self.scrollView setContentSize:CGSizeMake(self.rct.size.width * pages, self.rct.size.height)];
-    self.pageControl.numberOfPages = pages ;
-    [self addSubview:self.scrollView];
-    [self addSubview:self.pageControl];
+
     //
     NSInteger imgIndex = 0 ;
     UIEdgeInsets insets = UIEdgeInsetsMake(10, 20, 0, 20);
     CGFloat spacing_x = 10 ;
     CGFloat spacing_y = 15 ;
     CGFloat emoji_w =(_rct.size.width - insets.left - insets.right - (as_col - 1) * spacing_x ) / as_col ;
+    
+    [self.scrollView setContentSize:CGSizeMake(self.rct.size.width * pages, self.rct.size.height)];
+    self.pageControl.numberOfPages = pages ;
+    _pageControl.frame = CGRectMake(0, 10 + as_row * emoji_w + spacing_y * (as_row - 1) , self.scrollView.width, 40);
+    [self addSubview:self.scrollView];
+    [self addSubview:self.pageControl];
+    [self addSubview:self.sendButton];
+    
     for (int i = 0 ; i < pages; i ++) {
         UIView * emojiPageView = [[UIView alloc]init];
         emojiPageView.frame = CGRectMake(self.rct.size.width * i, 0, self.rct.size.width, self.rct.size.height);
@@ -100,9 +106,32 @@
         }
     }
 }
+- (void)sendMessage{
+    if ([self.delegate respondsToSelector:@selector(asEmojiSend:)]) {
+        [self.delegate asEmojiSend:self];
+    }
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     NSInteger index = scrollView.contentOffset.x / scrollView.width ;
     self.pageControl.currentPage = index ;
+}
+- (UIButton *)sendButton {
+    if (!_sendButton) {
+        _sendButton = [[UIButton alloc]init];
+        _sendButton.height = 30 ;
+        _sendButton.width = 54 ;
+        _sendButton.right = self.scrollView.width - 20 ;
+        _sendButton.centerY = self.pageControl.centerY ;
+
+        _sendButton.layer.cornerRadius = 4 ;
+        [_sendButton setTitle:@"发送" forState:UIControlStateNormal];
+        [_sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_sendButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_sendButton setBackgroundColor:[UIColor colorWithRed:30/255.0 green:198/255.0 blue:34/255.0 alpha:1]];
+        [_sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendButton ;
 }
 - (UIScrollView *)scrollView {
     if (!_scrollView) {
@@ -118,7 +147,6 @@
 - (UIPageControl *)pageControl {
     if (!_pageControl) {
         _pageControl = [[UIPageControl alloc]init];
-        _pageControl.frame = CGRectMake(0, self.scrollView.bottom - 54 , self.scrollView.width, 40);
         _pageControl.pageIndicatorTintColor = [UIColor grayColor];
         _pageControl.currentPageIndicatorTintColor = [UIColor whiteColor];
         _pageControl.hidesForSinglePage = YES ;

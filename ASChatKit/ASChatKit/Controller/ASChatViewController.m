@@ -30,11 +30,21 @@ UIImagePickerControllerDelegate>
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    NSString *version = [UIDevice currentDevice].systemVersion;
+    if (version.doubleValue < 11.0) {
+        [self as_initView];
+    }
+    
 }
+
+#ifdef __IPHONE_11_0
 - (void)viewSafeAreaInsetsDidChange {
     [super viewSafeAreaInsetsDidChange];
     [self as_initView];
 }
+#endif
+
 - (void)as_initView {
     [self.view addSubview:self.messageVC.view];
     [self addChildViewController:self.messageVC];
@@ -74,7 +84,12 @@ UIImagePickerControllerDelegate>
     }
 }
 - (void)chatBox:(ASChatBoxController *)chatBox didChangeHeight:(CGFloat)height {
-    self.messageVC.view.height = self.view.height - height - self.view.safeAreaInsets.bottom ;
+    
+    if (@available(iOS 11.0, *)) {
+        self.messageVC.view.height = self.view.height - height - self.view.safeAreaInsets.bottom ;
+    } else {
+        self.messageVC.view.height = self.view.height - height;
+    }
     self.chatBoxVC.view.top = self.messageVC.view.height ;
     self.chatBoxVC.view.height = self.messageVC.view.height ;
     [self.messageVC scrollToBottom];
@@ -139,9 +154,6 @@ UIImagePickerControllerDelegate>
     }
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
-    
-}
 - (void)didTapOnChatMessageController:(ASChatMessageController *)chatMessageController {
     [self.chatBoxVC resignFirstResponder];
     
@@ -152,7 +164,11 @@ UIImagePickerControllerDelegate>
 - (ASChatBoxController *)chatBoxVC {
     if (!_chatBoxVC) {
         _chatBoxVC = [[ASChatBoxController alloc]init];
-        _chatBoxVC.view.frame = CGRectMake(0, self.view.height - 54 - self.view.safeAreaInsets.bottom, self.view.width, 54 + self.view.safeAreaInsets.bottom);
+        if (@available(iOS 11.0, *)) {
+            _chatBoxVC.view.frame = CGRectMake(0, self.view.height - 54 - self.view.safeAreaInsets.bottom, self.view.width, 54 + self.view.safeAreaInsets.bottom);
+        } else {
+            _chatBoxVC.view.frame = CGRectMake(0, self.view.height - 54, self.view.width, 54);
+        }
         _chatBoxVC.delegate = self ;
     }
     return _chatBoxVC ;
@@ -160,7 +176,11 @@ UIImagePickerControllerDelegate>
 - (ASChatMessageController *)messageVC {
     if (!_messageVC) {
         _messageVC = [[ASChatMessageController alloc]init];
-        _messageVC.view.frame = CGRectMake(0, 0,self.view.width, self.view.height - 54 - self.view.safeAreaInsets.bottom);
+        if (@available(iOS 11.0, *)) {
+            _messageVC.view.frame = CGRectMake(0, 0,self.view.width, self.view.height - 54 - self.view.safeAreaInsets.bottom);
+        } else {
+            _messageVC.view.frame = CGRectMake(0, 0,self.view.width, self.view.height - 54);
+        }
         _messageVC.delegate = self ;
     }
     return _messageVC ;
