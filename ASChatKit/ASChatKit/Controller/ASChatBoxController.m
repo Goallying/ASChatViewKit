@@ -191,6 +191,12 @@ ASEmojiViewDelegate>
         [self.delegate chatBox:self didChangeHeight:self.keyBoardRect.size.height + _toolBar.barHeight];
     }
 }
+- (BOOL)isFirstResponder {
+    if (_toolBar.status != ASChatToolBarStatusNone && _toolBar.status != ASChatToolBarStatusVoice){
+        return  YES;
+    }
+    return NO ;
+}
 - (BOOL)resignFirstResponder {
     if (_toolBar.status != ASChatToolBarStatusNone && _toolBar.status != ASChatToolBarStatusVoice)
     {

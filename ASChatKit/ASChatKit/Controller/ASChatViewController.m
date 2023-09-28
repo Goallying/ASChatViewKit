@@ -55,6 +55,12 @@ UIImagePickerControllerDelegate>
 - (void)appendMessage:(id<ASMessageProtocol>)message{
     [self.messageVC appendMessage:message];
 }
+- (id<ASMessageProtocol>)latestMessage {
+    return  [self.messageVC latestMessage];
+}
+- (void)updateLatestMessage {
+    [self.messageVC updateLatestMessage];
+}
 #pragma mark --
 #pragma mark -- ASChatBoxDelegate --
 - (void)chatBox:(ASChatBoxController *)chatBox onClickType:(ASMoreOption)option {
@@ -79,14 +85,31 @@ UIImagePickerControllerDelegate>
     }
 }
 - (void)chatBox:(ASChatBoxController *)chatBox didFinishRecordVoice:(NSString *)filePath duration:(CGFloat)duration {
-    if ([self.delegate respondsToSelector:@selector(willSendVoice:duration:)]) {
-        [self.delegate willSendVoice:filePath duration:duration];
+    if ([self.delegate respondsToSelector:@selector(willSendVoice:voice:duration:)]) {
+        [self.delegate willSendVoice:self voice:filePath duration:duration];
+    }
+}
+- (void)chatBoxDidBeginRecordVoice:(ASChatBoxController *)chatBox {
+    if ([self.delegate respondsToSelector:@selector(willRecordVoice:)]) {
+        [self.delegate willRecordVoice:self];
+    }
+}
+- (void)chatBoxDidCancelRecordVoice:(ASChatBoxController *)chatBox {
+    if ([self.delegate respondsToSelector:@selector(willCancelRecordVoice:)]) {
+        [self.delegate willCancelRecordVoice:self];
     }
 }
 - (void)chatBox:(ASChatBoxController *)chatBox didChangeHeight:(CGFloat)height {
     
     if (@available(iOS 11.0, *)) {
-        self.messageVC.view.height = self.view.height - height - self.view.safeAreaInsets.bottom ;
+        //弹起状态
+        if (chatBox.isFirstResponder) {
+            self.messageVC.view.height = self.view.height - height;
+
+        }else {
+            //没有弹起
+            self.messageVC.view.height = self.view.height - height - self.view.safeAreaInsets.bottom;
+        }
     } else {
         self.messageVC.view.height = self.view.height - height;
     }

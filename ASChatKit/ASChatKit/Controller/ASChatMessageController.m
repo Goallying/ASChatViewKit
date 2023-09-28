@@ -38,10 +38,25 @@
 }
 - (void)appendMessage:(id<ASMessageProtocol>)message {
     [self.dataSource addObject:message];
-//    [self.tableView beginUpdates];
-    [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-//    [self.tableView endUpdates];
+
+    [UIView performWithoutAnimation:^{
+        [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+    }];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+
+//    [self.tableView beginUpdates];
+//    [self.tableView endUpdates];
+}
+- (id<ASMessageProtocol>)latestMessage {
+    if (self.dataSource.count == 0) {
+        return  nil;
+    }
+    return self.dataSource[self.dataSource.count - 1];
+}
+- (void)updateLatestMessage {
+    
+    if (self.dataSource.count == 0) return ;
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.dataSource.count - 1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     id <ASMessageProtocol> message = self.dataSource [indexPath.row];

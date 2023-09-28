@@ -24,6 +24,9 @@
 - (void)appendMessage:(id<ASMessageProtocol>)message ;
 - (void)scrollToBottom ;
 
+- (id<ASMessageProtocol>)latestMessage ;
+- (void)updateLatestMessage ;
+
 @end
 
 

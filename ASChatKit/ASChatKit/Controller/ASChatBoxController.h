@@ -17,6 +17,8 @@
 - (void)chatBox:(ASChatBoxController *)chatBox sendText:(NSString *)text ;
 - (void)chatBox:(ASChatBoxController *)chatBox onClickType:(ASMoreOption)option ;
 //voice
+- (void)chatBoxDidBeginRecordVoice:(ASChatBoxController *)chatBox ;
+- (void)chatBoxDidCancelRecordVoice:(ASChatBoxController *)chatBox;
 - (void)chatBox:(ASChatBoxController *)chatBox didFinishRecordVoice:(NSString *)filePath duration:(CGFloat)duration ;
 
 @end
